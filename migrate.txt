@@ -1,0 +1,40 @@
+
+  Dropping all tables  79.13ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table  9.19ms DONE
+
+   INFO  Running migrations.  
+
+  0001_01_01_000000_create_users_table  47.90ms DONE
+  0001_01_01_000001_create_cache_table  9.88ms DONE
+  0001_01_01_000002_create_jobs_table  52.91ms DONE
+  2026_04_06_175853_alter_users_table  7.95ms DONE
+  2026_04_06_175854_create_categories_table  20.75ms DONE
+  2026_04_06_175854_create_suppliers_table  5.39ms DONE
+  2026_04_06_175855_create_customers_table  23.33ms DONE
+  2026_04_06_175855_create_products_table  95.91ms DONE
+  2026_04_06_175856_create_order_items_table  29.21ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000]: General error: 1005 Can't create table `smartpos_db`.`order_items` (errno: 150 "Foreign key constraint is incorrectly formed") (Connection: mysql, SQL: alter table `order_items` add constraint `order_items_order_id_foreign` foreign key (`order_id`) references `orders` (`id`) on delete cascade)
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:825
+    821▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    822▕                 );
+    823▕             }
+    824▕ 
+  ➜ 825▕             throw new QueryException(
+    826▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    827▕             );
+    828▕         }
+    829▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:571
+      PDOException::("SQLSTATE[HY000]: General error: 1005 Can't create table `smartpos_db`.`order_items` (errno: 150 "Foreign key constraint is incorrectly formed")")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:571
+      PDOStatement::execute()
+
