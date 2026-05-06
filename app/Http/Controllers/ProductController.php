@@ -35,7 +35,7 @@ class ProductController extends Controller
         $data['serial_tracking'] = $request->boolean('serial_tracking');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $data['image'] = $request->file('image')->store('products', 's3');
         }
 
         Product::create($data);
@@ -57,9 +57,9 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             if ($product->image) {
-                Storage::disk('public')->delete($product->image);
+                Storage::disk('s3')->delete($product->image);
             }
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $data['image'] = $request->file('image')->store('products', 's3');
         }
 
         $product->update($data);
@@ -76,7 +76,7 @@ class ProductController extends Controller
         $product->serialNumbers()->where('status', 'available')->delete();
 
         if ($product->image) {
-            Storage::disk('public')->delete($product->image);
+            Storage::disk('s3')->delete($product->image);
         }
 
         $product->delete();

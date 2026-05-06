@@ -25,7 +25,7 @@ class BrandController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('logo')) {
-            $data['logo'] = $request->file('logo')->store('brands', 'public');
+            $data['logo'] = $request->file('logo')->store('brands', 's3');
         }
 
         Brand::create($data);
@@ -43,9 +43,9 @@ class BrandController extends Controller
 
         if ($request->hasFile('logo')) {
             if ($brand->logo) {
-                Storage::disk('public')->delete($brand->logo);
+                Storage::disk('s3')->delete($brand->logo);
             }
-            $data['logo'] = $request->file('logo')->store('brands', 'public');
+            $data['logo'] = $request->file('logo')->store('brands', 's3');
         }
 
         $brand->update($data);
@@ -60,7 +60,7 @@ class BrandController extends Controller
         }
 
         if ($brand->logo) {
-            Storage::disk('public')->delete($brand->logo);
+            Storage::disk('s3')->delete($brand->logo);
         }
 
         $brand->delete();
